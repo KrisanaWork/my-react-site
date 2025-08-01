@@ -6,6 +6,7 @@ const { Pool } = require('pg');
 const app = express();
 const port = process.env.PORT || 3001;
 
+// เปิด CORS ให้ React app บน GitHub Pages (domain เท่านั้น ไม่รวม path)
 app.use(cors({
   origin: 'https://krisanawork.github.io'
 }));
@@ -15,7 +16,10 @@ const pool = new Pool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  port: process.env.DB_PORT,
+  port: Number(process.env.DB_PORT) || 5432,
+  ssl: {
+    rejectUnauthorized: false  // ถ้า Render หรือฐานข้อมูล require SSL
+  }
 });
 
 app.get('/api/users', async (req, res) => {
