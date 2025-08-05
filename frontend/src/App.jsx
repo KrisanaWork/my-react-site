@@ -12,7 +12,7 @@ function App() {
   useEffect(() => {
     async function fetchUsers() {
       try {
-        const response = await fetch('http://localhost:3001/api/users')
+        const response = await fetch('https://my-backend-bvzv.onrender.com')
         if (!response.ok) {
           throw new Error('Failed to fetch users')
         }
